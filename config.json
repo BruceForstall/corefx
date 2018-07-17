@@ -252,6 +252,12 @@
         "values": [],
         "defaultValue": ""
     },
+    "AltjitExclusionCategories": {
+        "description": "An msbuild pass-through argument used to specify exclusion categories for altjit test runs",
+        "valueType": "passThrough",
+        "values": [],
+        "defaultValue": ""
+    },
   },
   "commands": {
     "build-directory": {
@@ -293,7 +299,7 @@
           }
         },
         "buildArch": {
-          "description": "Sets the architecture for the managed build confiuguration. (/p:ArchGroup=[value])",
+          "description": "Sets the architecture for the managed build configuration. (/p:ArchGroup=[value])",
           "settings": {
             "ArchGroup": "default"
           }
@@ -381,7 +387,7 @@
           }
         },
         "buildArch": {
-          "description": "Sets the architecture for the managed build confiuguration. (/p:ArchGroup=[value])",
+          "description": "Sets the architecture for the managed build configuration. (/p:ArchGroup=[value])",
           "settings": {
             "ArchGroup": "default"
           }
@@ -409,6 +415,12 @@
           "description": "Passes /flp:v=diag to the msbuild command or the value passed by the user.",
           "settings": {
             "MsBuildLogging": "/flp:v=diag;LogFile=build-managed.log"
+          }
+        },
+        "AltjitExclusions": {
+          "description": "Passes appropriate /p:WithoutCategories set for altjit testing.",
+          "settings": {
+            "AltjitExclusionCategories": "/p:WithoutCategories=\\\"IgnoreForCI;XsltcExeRequired\\\""
           }
         }
       },
@@ -456,7 +468,7 @@
           }
         },
         "buildArch": {
-          "description": "Sets the architecture for the native build confiuguration.",
+          "description": "Sets the architecture for the native build configuration.",
           "settings": {
             "BuildArchitecture": "default"
           }
