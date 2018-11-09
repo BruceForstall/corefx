@@ -1,6 +1,12 @@
 @if "%_echo%" neq "on" echo off
+@echo on
 rem
 rem This file invokes cmake and generates the build system for windows.
+
+echo ================================================================================================================
+echo gen-buildsys-win: initial environment
+set
+echo ================================================================================================================
 
 set argC=0
 for %%x in (%*) do Set /A argC+=1
@@ -26,7 +32,26 @@ if /i "%3" == "arm"     (set __VSString=%__VSString% ARM)
 if /i "%3" == "arm64"   (set __ExtraCmakeParams=%__ExtraCmakeParams% -A ARM64)
 if /i "%3" == "wasm"    (set __sourceDir=%~dp0..\Unix && goto DoGen)
 
+echo ================================================================================================================
+echo gen-buildsys-win: environment before CMakePath check
+set
+echo ================================================================================================================
+
 if defined CMakePath goto DoGen
+
+echo ================================================================================================================
+echo gen-buildsys-win: run probe-win-test.ps1
+pushd "%__sourceDir%"
+powershell -NoProfile -ExecutionPolicy ByPass .\probe-win-test.ps1
+popd
+echo ================================================================================================================
+
+echo ================================================================================================================
+echo gen-buildsys-win: run probe-win.ps1
+pushd "%__sourceDir%"
+powershell -NoProfile -ExecutionPolicy ByPass .\probe-win.ps1
+popd
+echo ================================================================================================================
 
 :: Eval the output from probe-win1.ps1
 pushd "%__sourceDir%"

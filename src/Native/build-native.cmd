@@ -1,5 +1,11 @@
 @if not defined _echo @echo off
+@echo on
 setlocal
+
+echo ================================================================================================================
+echo build-native: initial environment
+set
+echo ================================================================================================================
 
 :SetupArgs
 :: Initialize the args that will be passed to cmake
@@ -99,6 +105,12 @@ goto :SetupDirs
 echo Commencing build of native components
 echo.
 
+@echo on
+echo ================================================================================================================
+echo build-native: environment after vcvarsall
+set
+echo ================================================================================================================
+
 
 if [%__outConfig%] == [] set __outConfig=%__BuildOS%-%__BuildArch%-%CMAKE_BUILD_TYPE%
 
@@ -134,6 +146,12 @@ exit /b 1
 
 :GenVSSolution
 :: Regenerate the VS solution
+
+@echo on
+echo ================================================================================================================
+echo build-native: environment before gen-buildsys-win.bat
+set
+echo ================================================================================================================
 
 pushd "%__IntermediatesDir%"
 call "%__nativeWindowsDir%\gen-buildsys-win.bat" %__nativeWindowsDir% %__VSVersion% %__BuildArch%
